@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopEase – E-Commerce Website Prototype | Assignment 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --primary: #FF4D1C;
+    --primary-dark: #CC3A12;
+    --dark: #0E0E0E;
+    --mid: #1C1C1C;
+    --surface: #252525;
+    --border: #333;
+    --text: #F5F5F5;
+    --muted: #999;
+    --accent: #FFD166;
+    --green: #06D6A0;
+    --blue: #118AB2;
+    --page-bg: #111;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page-bg);
+    color: var(--text);
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #1C1C1C 0%, #0E0E0E 100%);
+    border: 1px solid #333;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,77,28,0.2) 0%, transparent 70%);
+    top: -100px; right: -50px;
+    border-radius: 50%;
+  }
+  .page-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .page-header p { color: var(--muted); font-size: 1rem; }
+  .badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Grid layout */
+  .screens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Screen wrapper */
+  .screen-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .screen-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .screen-label span {
+    background: var(--primary);
+    color: white;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .screen-name { color: var(--text); font-size: 1rem; font-weight: 600; font-family: 'Syne', sans-serif; }
+
+  /* Phone frame */
+  .phone-frame {
+    width: 100%;
+    aspect-ratio: 9/19;
+    background: #1a1a1a;
+    border-radius: 40px;
+    border: 3px solid #444;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 6px #0a0a0a;
+  }
+  .phone-frame::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 22px;
+    background: #0a0a0a;
+    border-radius: 20px;
+    z-index: 999;
+  }
+  .phone-frame::after {
+    content: '';
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    background: #222;
+    border-radius: 50%;
+    border: 2px solid #333;
+    z-index: 1000;
+  }
+  .screen-content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 46px;
+  }
+
+  /* ============ SCREEN DESIGNS ============ */
+
+  /* S1: Splash / Onboarding */
+  .s1 { background: linear-gradient(160deg, #0E0E0E 0%, #1a0a05 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 30px 24px; text-align: center; }
+  .s1-logo { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--primary); line-height: 1; }
+  .s1-logo span { color: var(--accent); }
+  .s1-tagline { color: #ccc; font-size: 0.85rem; margin: 10px 0 40px; }
+  .s1-img { width: 140px; height: 140px; background: radial-gradient(circle, rgba(255,77,28,0.25) 0%, transparent 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin-bottom: 40px; }
+  .s1-btn { background: var(--primary); color: white; border: none; padding: 14px 40px; border-radius: 30px; font-family: 'Syne',sans-serif; font-size: 0.95rem; font-weight: 700; width: 100%; cursor: pointer; }
+  .s1-link { color: var(--muted); font-size: 0.78rem; margin-top: 14px; }
+
+  /* S2: Login */
+  .s2 { background: var(--dark); height: 100%; padding: 24px; display: flex; flex-direction: column; }
+  .s2-back { color: var(--muted); font-size: 1.2rem; margin-bottom: 24px; }
+  .s2-title { font-family: 'Syne',sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+  .s2-sub { color: var(--muted); font-size: 0.78rem; margin-bottom: 30px; }
+  .s2-label { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .s2-input { width: 100%; background: #1e1e1e; border: 1px solid #333; border-radius: 12px; padding: 12px 16px; color: white; font-size: 0.85rem; margin-bottom: 16px; }
+  .s2-btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 700; width: 100%; font-family: 'Syne',sans-serif; margin-top: 8px; }
+  .s2-or { text-align: center; color: var(--muted); font-size: 0.75rem; margin: 16px 0; position: relative; }
+  .s2-or::before, .s2-or::after { content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: #333; }
+  .s2-or::before { left: 0; } .s2-or::after { right: 0; }
+  .s2-social { display: flex; gap: 10px; }
+  .s2-social-btn { flex: 1; background: #1e1e1e; border: 1px solid #333; border-radius: 12px; padding: 12px; text-align: center; font-size: 1.1rem; }
+
+  /* S3: Home Feed */
+  .s3 { background: var(--dark); height: 100%; overflow: hidden; display: flex; flex-direction: column; }
+  .s3-nav { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .s3-loc { display: flex; align-items: center; gap: 6px; }
+  .s3-loc-icon { color: var(--primary); font-size: 0.9rem; }
+  .s3-loc-text { font-size: 0.75rem; font-weight: 600; }
+  .s3-loc-sub { font-size: 0.65rem; color: var(--muted); }
+  .s3-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .s3-search { margin: 0 20px 14px; background: #1e1e1e; border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; border: 1px solid #2a2a2a; }
+  .s3-search-ph { font-size: 0.75rem; color: var(--muted); }
+  .s3-section-title { padding: 0 20px; font-family: 'Syne',sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between; }
+  .s3-section-title span { color: var(--primary); font-size: 0.7rem; }
+  .s3-cats { display: flex; gap: 8px; padding: 0 20px; margin-bottom: 16px; overflow: hidden; }
+  .s3-cat { background: #1e1e1e; border-radius: 20px; padding: 6px 14px; font-size: 0.7rem; white-space: nowrap; border: 1px solid #2a2a2a; }
+  .s3-cat.active { background: var(--primary); border-color: var(--primary); }
+  .s3-cards { display: flex; gap: 12px; padding: 0 20px; overflow: hidden; }
+  .s3-card { min-width: 130px; background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid #333; }
+  .s3-card-img { height: 80px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+  .s3-card-body { padding: 8px 10px; }
+  .s3-card-name { font-size: 0.7rem; font-weight: 600; margin-bottom: 2px; }
+  .s3-card-price { color: var(--primary); font-size: 0.7rem; font-weight: 700; }
+  .s3-card-rating { color: var(--accent); font-size: 0.6rem; }
+  .s3-promo { margin: 14px 20px 0; background: linear-gradient(135deg, #FF4D1C, #FF8C42); border-radius: 16px; padding: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .s3-promo-text { font-family:'Syne',sans-serif; font-size: 0.8rem; font-weight: 700; }
+  .s3-promo-badge { background: white; color: var(--primary); font-size: 0.65rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+  .s3-bottom { margin-top: auto; display: flex; justify-content: space-around; padding: 12px 20px; background: #1a1a1a; border-top: 1px solid #2a2a2a; }
+  .s3-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.6rem; color: var(--muted); }
+  .s3-tab.active { color: var(--primary); }
+  .s3-tab-icon { font-size: 1.1rem; }
+
+  /* S4: Product Listing */
+  .s4 { background: var(--dark); height: 100%; display: flex; flex-direction: column; }
+  .s4-header { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #222; }
+  .s4-back { color: var(--muted); font-size: 1rem; }
+  .s4-title { font-family: 'Syne',sans-serif; font-weight: 700; font-size: 1rem; flex: 1; }
+  .s4-filter { color: var(--primary); font-size: 0.75rem; }
+  .s4-list { flex: 1; overflow: hidden; padding: 14px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .s4-item { background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid #2a2a2a; }
+  .s4-item-img { height: 90px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); }
+  .s4-item-body { padding: 8px 10px; }
+  .s4-item-name { font-size: 0.68rem; font-weight: 600; margin-bottom: 4px; }
+  .s4-item-price { color: var(--primary); font-size: 0.72rem; font-weight: 700; }
+  .s4-item-add { float: right; background: var(--primary); color: white; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .s4-bottom { display: flex; justify-content: space-around; padding: 12px; background: #1a1a1a; border-top: 1px solid #222; }
+  .s4-tab { font-size: 1.1rem; color: var(--muted); }
+  .s4-tab.active { color: var(--primary); }
+
+  /* S5: Product Detail */
+  .s5 { background: var(--dark); height: 100%; display: flex; flex-direction: column; }
+  .s5-hero { height: 200px; background: linear-gradient(135deg, #1a1a1a, #2a2a2a); display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; }
+  .s5-back { position: absolute; top: 14px; left: 14px; background: rgba(0,0,0,0.5); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: white; }
+  .s5-fav { position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,0.5); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+  .s5-body { padding: 16px 20px; flex: 1; }
+  .s5-name { font-family: 'Syne',sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .s5-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .s5-price { color: var(--primary); font-size: 1.2rem; font-weight: 700; }
+  .s5-rating { color: var(--accent); font-size: 0.75rem; }
+  .s5-desc { color: var(--muted); font-size: 0.72rem; line-height: 1.6; margin-bottom: 14px; }
+  .s5-qty-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .s5-qty-label { font-size: 0.75rem; font-weight: 600; }
+  .s5-qty { display: flex; align-items: center; gap: 10px; background: #1e1e1e; border-radius: 20px; padding: 6px 12px; }
+  .s5-qty span { font-size: 0.85rem; font-weight: 700; }
+  .s5-qty button { background: none; border: none; color: white; font-size: 1rem; cursor: pointer; }
+  .s5-add-btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 14px; font-family: 'Syne',sans-serif; font-weight: 700; width: 100%; font-size: 0.9rem; }
+
+  /* S6: Cart */
+  .s6 { background: var(--dark); height: 100%; display: flex; flex-direction: column; }
+  .s6-header { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #222; }
+  .s6-title { font-family: 'Syne',sans-serif; font-size: 1rem; font-weight: 700; flex: 1; }
+  .s6-clear { color: var(--primary); font-size: 0.72rem; }
+  .s6-list { flex: 1; overflow: hidden; padding: 14px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .s6-item { display: flex; align-items: center; gap: 12px; background: var(--surface); border-radius: 14px; padding: 10px 12px; border: 1px solid #2a2a2a; }
+  .s6-item-emoji { font-size: 2rem; background: #1e1e1e; width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .s6-item-info { flex: 1; }
+  .s6-item-name { font-size: 0.75rem; font-weight: 600; margin-bottom: 3px; }
+  .s6-item-price { color: var(--primary); font-size: 0.72rem; font-weight: 700; }
+  .s6-item-qty { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; background: #1a1a1a; border-radius: 20px; padding: 4px 10px; }
+  .s6-summary { margin: 0 20px 12px; background: var(--surface); border-radius: 14px; padding: 14px; border: 1px solid #2a2a2a; }
+  .s6-sum-row { display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 8px; color: var(--muted); }
+  .s6-sum-total { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; border-top: 1px solid #333; padding-top: 8px; }
+  .s6-checkout { margin: 0 20px 14px; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 14px; font-family: 'Syne',sans-serif; font-weight: 700; width: calc(100% - 40px); font-size: 0.9rem; }
+
+  /* S7: Checkout */
+  .s7 { background: var(--dark); height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+  .s7-header { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #222; }
+  .s7-title { font-family: 'Syne',sans-serif; font-size: 1rem; font-weight: 700; flex: 1; }
+  .s7-body { flex: 1; padding: 14px 20px; overflow: hidden; }
+  .s7-section { margin-bottom: 16px; }
+  .s7-sec-title { font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .s7-addr { background: var(--surface); border-radius: 14px; padding: 12px; border: 1px solid #2a2a2a; display: flex; align-items: flex-start; gap: 10px; }
+  .s7-addr-icon { color: var(--primary); font-size: 1rem; }
+  .s7-addr-text { font-size: 0.72rem; line-height: 1.5; }
+  .s7-pay-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .s7-pay-opt { background: var(--surface); border-radius: 12px; padding: 10px 12px; border: 1px solid #2a2a2a; font-size: 0.7rem; display: flex; align-items: center; gap: 6px; }
+  .s7-pay-opt.selected { border-color: var(--primary); }
+  .s7-pay-opt-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #444; }
+  .s7-pay-opt.selected .s7-pay-opt-dot { background: var(--primary); border-color: var(--primary); }
+  .s7-btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 14px; font-family: 'Syne',sans-serif; font-weight: 700; width: 100%; margin-top: 8px; }
+
+  /* S8: Order Tracking */
+  .s8 { background: var(--dark); height: 100%; display: flex; flex-direction: column; }
+  .s8-header { padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #222; }
+  .s8-title { font-family: 'Syne',sans-serif; font-size: 1rem; font-weight: 700; flex: 1; }
+  .s8-map { height: 160px; background: linear-gradient(135deg, #1a2a1a, #1a1a2a); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; border-bottom: 1px solid #222; }
+  .s8-map::after { content: '📍'; position: absolute; font-size: 1.5rem; bottom: 30px; right: 60px; }
+  .s8-body { padding: 16px 20px; flex: 1; }
+  .s8-order-id { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
+  .s8-eta { font-family: 'Syne',sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--green); margin-bottom: 16px; }
+  .s8-steps { display: flex; flex-direction: column; gap: 0; }
+  .s8-step { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 16px; position: relative; }
+  .s8-step:not(:last-child)::after { content: ''; position: absolute; left: 11px; top: 22px; width: 2px; height: calc(100% - 8px); background: #333; }
+  .s8-step.done::after { background: var(--green); }
+  .s8-step-dot { width: 24px; height: 24px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; z-index: 1; }
+  .s8-step.done .s8-step-dot { background: var(--green); }
+  .s8-step.active .s8-step-dot { background: var(--primary); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+  .s8-step-label { font-size: 0.75rem; font-weight: 600; }
+  .s8-step-time { font-size: 0.65rem; color: var(--muted); }
+
+  /* S9: Profile */
+  .s9 { background: var(--dark); height: 100%; display: flex; flex-direction: column; }
+  .s9-hero { background: linear-gradient(135deg, #1a0a05, #200d08); padding: 24px 20px; display: flex; align-items: center; gap: 16px; }
+  .s9-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 700; border: 3px solid rgba(255,255,255,0.2); }
+  .s9-name { font-family: 'Syne',sans-serif; font-size: 1.1rem; font-weight: 700; }
+  .s9-email { font-size: 0.72rem; color: var(--muted); }
+  .s9-edit { margin-left: auto; background: rgba(255,77,28,0.15); color: var(--primary); border: 1px solid rgba(255,77,28,0.3); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+  .s9-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #222; margin-bottom: 16px; }
+  .s9-stat { background: var(--dark); padding: 14px; text-align: center; }
+  .s9-stat-val { font-family: 'Syne',sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+  .s9-stat-label { font-size: 0.6rem; color: var(--muted); margin-top: 2px; }
+  .s9-menu { flex: 1; padding: 0 20px; }
+  .s9-menu-item { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid #1e1e1e; }
+  .s9-menu-icon { font-size: 1rem; width: 28px; }
+  .s9-menu-label { font-size: 0.8rem; flex: 1; }
+  .s9-menu-arrow { color: var(--muted); font-size: 0.7rem; }
+
+  /* S10: Order Success */
+  .s10 { background: var(--dark); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 24px; text-align: center; }
+  .s10-circle { width: 100px; height: 100px; border-radius: 50%; background: rgba(6,214,160,0.15); border: 3px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 3rem; margin-bottom: 24px; }
+  .s10-title { font-family: 'Syne',sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+  .s10-sub { color: var(--muted); font-size: 0.8rem; line-height: 1.6; margin-bottom: 30px; }
+  .s10-order-card { background: var(--surface); border-radius: 16px; padding: 16px; width: 100%; text-align: left; border: 1px solid #2a2a2a; margin-bottom: 24px; }
+  .s10-order-row { display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 6px; }
+  .s10-order-row:last-child { margin-bottom: 0; font-weight: 700; border-top: 1px solid #333; padding-top: 8px; margin-top: 8px; }
+  .s10-btn { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 14px; font-family: 'Syne',sans-serif; font-weight: 700; width: 100%; margin-bottom: 10px; }
+  .s10-link { color: var(--muted); font-size: 0.75rem; }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    border-top: 1px solid #222;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">Assignment 1 – Unit 1 | Task 2</div>
+  <h1>ShopEase</h1>
+  <p>E-Commerce Mobile App — Figma Prototype Design | Enrollment: 2501031030018</p>
+  <p style="margin-top:8px;color:#666;font-size:0.8rem;">10 Screens Prototype Design</p>
+</div>
+
+<div class="screens-grid">
+
+  <!-- SCREEN 1: Splash -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>1</span> <div><div>Screen 01</div><div class="screen-name">Splash / Onboarding</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s1">
+          <div class="s1-img">🛒</div>
+          <div class="s1-logo">Shop<span>Ease</span></div>
+          <div class="s1-tagline">Your favorite store, in your pocket.</div>
+          <button class="s1-btn">Get Started</button>
+          <div class="s1-link">Already have an account? <span style="color:var(--primary)">Log in</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Login -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>2</span> <div><div>Screen 02</div><div class="screen-name">Login Screen</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s2">
+          <div class="s2-back">←</div>
+          <div class="s2-title">Welcome Back 👋</div>
+          <div class="s2-sub">Sign in to your ShopEase account</div>
+          <div class="s2-label">Email Address</div>
+          <div class="s2-input" style="color:#666">ayush@email.com</div>
+          <div class="s2-label">Password</div>
+          <div class="s2-input" style="color:#666">••••••••••</div>
+          <div style="text-align:right;font-size:0.7rem;color:var(--primary);margin-bottom:16px">Forgot Password?</div>
+          <button class="s2-btn">Sign In</button>
+          <div class="s2-or">or continue with</div>
+          <div class="s2-social">
+            <div class="s2-social-btn">G</div>
+            <div class="s2-social-btn">f</div>
+            <div class="s2-social-btn">🍎</div>
+          </div>
+          <div style="text-align:center;margin-top:14px;font-size:0.72rem;color:var(--muted)">Don't have an account? <span style="color:var(--primary)">Sign Up</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Home Feed -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>3</span> <div><div>Screen 03</div><div class="screen-name">Home / Dashboard</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s3">
+          <div class="s3-nav">
+            <div class="s3-loc">
+              <div class="s3-loc-icon">📍</div>
+              <div>
+                <div class="s3-loc-text">Ahmedabad, GJ</div>
+                <div class="s3-loc-sub">Gujarat, India ▾</div>
+              </div>
+            </div>
+            <div class="s3-avatar">A</div>
+          </div>
+          <div class="s3-search">
+            <span>🔍</span>
+            <span class="s3-search-ph">Search products...</span>
+          </div>
+          <div class="s3-section-title">Categories <span>See All</span></div>
+          <div class="s3-cats">
+            <div class="s3-cat active">All</div>
+            <div class="s3-cat">Electronics</div>
+            <div class="s3-cat">Fashion</div>
+            <div class="s3-cat">Food</div>
+          </div>
+          <div class="s3-promo">
+            <div>
+              <div class="s3-promo-text">Get 30% OFF</div>
+              <div style="font-size:0.65rem;opacity:0.85">On your first order today</div>
+            </div>
+            <div class="s3-promo-badge">SHOP30</div>
+          </div>
+          <div class="s3-section-title" style="margin-top:14px">Featured Items <span>See All</span></div>
+          <div class="s3-cards">
+            <div class="s3-card">
+              <div class="s3-card-img">📱</div>
+              <div class="s3-card-body">
+                <div class="s3-card-name">Wireless Pro</div>
+                <div class="s3-card-rating">⭐ 4.8</div>
+                <div class="s3-card-price">₹2,499</div>
+              </div>
+            </div>
+            <div class="s3-card">
+              <div class="s3-card-img">👟</div>
+              <div class="s3-card-body">
+                <div class="s3-card-name">Air Max 90</div>
+                <div class="s3-card-rating">⭐ 4.6</div>
+                <div class="s3-card-price">₹3,999</div>
+              </div>
+            </div>
+            <div class="s3-card">
+              <div class="s3-card-img">🎧</div>
+              <div class="s3-card-body">
+                <div class="s3-card-name">EarBuds X</div>
+                <div class="s3-card-rating">⭐ 4.7</div>
+                <div class="s3-card-price">₹1,799</div>
+              </div>
+            </div>
+          </div>
+          <div class="s3-bottom">
+            <div class="s3-tab active"><div class="s3-tab-icon">🏠</div>Home</div>
+            <div class="s3-tab"><div class="s3-tab-icon">🔍</div>Search</div>
+            <div class="s3-tab"><div class="s3-tab-icon">🛒</div>Cart</div>
+            <div class="s3-tab"><div class="s3-tab-icon">👤</div>Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Product Listing -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>4</span> <div><div>Screen 04</div><div class="screen-name">Product Listing</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s4">
+          <div class="s4-header">
+            <div class="s4-back">←</div>
+            <div class="s4-title">Electronics</div>
+            <div class="s4-filter">Filter ⚙</div>
+          </div>
+          <div class="s4-list">
+            <div class="s4-item"><div class="s4-item-img">📱</div><div class="s4-item-body"><div class="s4-item-name">Wireless Pro Max</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹2,499</div><div class="s4-item-add">+</div></div></div></div>
+            <div class="s4-item"><div class="s4-item-img">💻</div><div class="s4-item-body"><div class="s4-item-name">UltraBook 14</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹45,999</div><div class="s4-item-add">+</div></div></div></div>
+            <div class="s4-item"><div class="s4-item-img">🎧</div><div class="s4-item-body"><div class="s4-item-name">EarBuds X Pro</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹1,799</div><div class="s4-item-add">+</div></div></div></div>
+            <div class="s4-item"><div class="s4-item-img">⌚</div><div class="s4-item-body"><div class="s4-item-name">Smart Watch S3</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹8,999</div><div class="s4-item-add">+</div></div></div></div>
+            <div class="s4-item"><div class="s4-item-img">📷</div><div class="s4-item-body"><div class="s4-item-name">Cam Mini 4K</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹12,499</div><div class="s4-item-add">+</div></div></div></div>
+            <div class="s4-item"><div class="s4-item-img">🖥️</div><div class="s4-item-body"><div class="s4-item-name">Monitor 27"</div><div style="display:flex;align-items:center;justify-content:space-between"><div class="s4-item-price">₹18,999</div><div class="s4-item-add">+</div></div></div></div>
+          </div>
+          <div class="s4-bottom">
+            <div class="s4-tab">🏠</div>
+            <div class="s4-tab">🔍</div>
+            <div class="s4-tab active" style="color:var(--primary)">🛒</div>
+            <div class="s4-tab">👤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: Product Detail -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>5</span> <div><div>Screen 05</div><div class="screen-name">Product Detail</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s5">
+          <div class="s5-hero">
+            📱
+            <div class="s5-back">←</div>
+            <div class="s5-fav">♡</div>
+          </div>
+          <div class="s5-body">
+            <div class="s5-name">Wireless Pro Max</div>
+            <div class="s5-row">
+              <div class="s5-price">₹2,499</div>
+              <div class="s5-rating">⭐ 4.8 &nbsp;<span style="color:var(--muted)">(1.2k reviews)</span></div>
+            </div>
+            <div class="s5-desc">Premium wireless smartphone with 6.7" AMOLED display, 5000mAh battery, 48MP triple camera, and 5G connectivity. Available in midnight black and aurora silver.</div>
+            <div class="s5-qty-row">
+              <div class="s5-qty-label">Quantity</div>
+              <div class="s5-qty">
+                <button>−</button>
+                <span>1</span>
+                <button>+</button>
+              </div>
+            </div>
+            <button class="s5-add-btn">Add to Cart 🛒</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: Cart -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>6</span> <div><div>Screen 06</div><div class="screen-name">Shopping Cart</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s6">
+          <div class="s6-header">
+            <div class="s4-back">←</div>
+            <div class="s6-title">My Cart (3)</div>
+            <div class="s6-clear">Clear All</div>
+          </div>
+          <div class="s6-list">
+            <div class="s6-item">
+              <div class="s6-item-emoji">📱</div>
+              <div class="s6-item-info">
+                <div class="s6-item-name">Wireless Pro Max</div>
+                <div class="s6-item-price">₹2,499</div>
+              </div>
+              <div class="s6-item-qty">− 1 +</div>
+            </div>
+            <div class="s6-item">
+              <div class="s6-item-emoji">🎧</div>
+              <div class="s6-item-info">
+                <div class="s6-item-name">EarBuds X Pro</div>
+                <div class="s6-item-price">₹1,799</div>
+              </div>
+              <div class="s6-item-qty">− 1 +</div>
+            </div>
+            <div class="s6-item">
+              <div class="s6-item-emoji">⌚</div>
+              <div class="s6-item-info">
+                <div class="s6-item-name">Smart Watch S3</div>
+                <div class="s6-item-price">₹8,999</div>
+              </div>
+              <div class="s6-item-qty">− 1 +</div>
+            </div>
+          </div>
+          <div class="s6-summary">
+            <div class="s6-sum-row"><span>Subtotal</span><span>₹13,297</span></div>
+            <div class="s6-sum-row"><span>Delivery</span><span style="color:var(--green)">FREE</span></div>
+            <div class="s6-sum-row"><span>Discount (SHOP30)</span><span style="color:var(--primary)">−₹3,989</span></div>
+            <div class="s6-sum-total"><span>Total</span><span>₹9,308</span></div>
+          </div>
+          <button class="s6-checkout">Proceed to Checkout →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 7: Checkout -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>7</span> <div><div>Screen 07</div><div class="screen-name">Checkout / Payment</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s7">
+          <div class="s7-header">
+            <div class="s4-back">←</div>
+            <div class="s7-title">Checkout</div>
+          </div>
+          <div class="s7-body">
+            <div class="s7-section">
+              <div class="s7-sec-title">Delivery Address</div>
+              <div class="s7-addr">
+                <div class="s7-addr-icon">📍</div>
+                <div class="s7-addr-text">A-204, Shyam Residency<br>Navrangpura, Ahmedabad<br>Gujarat — 380009</div>
+                <div style="margin-left:auto;color:var(--primary);font-size:0.7rem">Edit</div>
+              </div>
+            </div>
+            <div class="s7-section">
+              <div class="s7-sec-title">Payment Method</div>
+              <div class="s7-pay-opts">
+                <div class="s7-pay-opt selected"><div class="s7-pay-opt-dot"></div>UPI Pay</div>
+                <div class="s7-pay-opt"><div class="s7-pay-opt-dot"></div>Credit Card</div>
+                <div class="s7-pay-opt"><div class="s7-pay-opt-dot"></div>Net Banking</div>
+                <div class="s7-pay-opt"><div class="s7-pay-opt-dot"></div>Cash on Delivery</div>
+              </div>
+            </div>
+            <div class="s7-section">
+              <div class="s7-sec-title">Order Summary</div>
+              <div style="background:var(--surface);border-radius:12px;padding:12px;border:1px solid #2a2a2a;font-size:0.72rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>3 Items</span><span>₹13,297</span></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;color:var(--primary)"><span>Discount</span><span>−₹3,989</span></div>
+                <div style="display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #333;padding-top:8px;margin-top:4px"><span>Total</span><span>₹9,308</span></div>
+              </div>
+            </div>
+            <button class="s7-btn">Place Order — ₹9,308</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 8: Order Tracking -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>8</span> <div><div>Screen 08</div><div class="screen-name">Order Tracking</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s8">
+          <div class="s8-header">
+            <div class="s4-back">←</div>
+            <div class="s8-title">Track Order</div>
+          </div>
+          <div class="s8-map">🗺️</div>
+          <div class="s8-body">
+            <div class="s8-order-id">Order #SE2501031030018</div>
+            <div class="s8-eta">Est. 35 min arrival</div>
+            <div class="s8-steps">
+              <div class="s8-step done">
+                <div class="s8-step-dot">✓</div>
+                <div><div class="s8-step-label">Order Placed</div><div class="s8-step-time">2:30 PM</div></div>
+              </div>
+              <div class="s8-step done">
+                <div class="s8-step-dot">✓</div>
+                <div><div class="s8-step-label">Payment Confirmed</div><div class="s8-step-time">2:31 PM</div></div>
+              </div>
+              <div class="s8-step active">
+                <div class="s8-step-dot">🚚</div>
+                <div><div class="s8-step-label">Out for Delivery</div><div class="s8-step-time">In progress</div></div>
+              </div>
+              <div class="s8-step">
+                <div class="s8-step-dot">📦</div>
+                <div><div class="s8-step-label">Delivered</div><div class="s8-step-time">~3:05 PM</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 9: Profile -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>9</span> <div><div>Screen 09</div><div class="screen-name">User Profile</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s9">
+          <div class="s9-hero">
+            <div class="s9-avatar">A</div>
+            <div>
+              <div class="s9-name">Ayush</div>
+              <div class="s9-email">ayush@shopease.com</div>
+            </div>
+            <button class="s9-edit">Edit</button>
+          </div>
+          <div class="s9-stats">
+            <div class="s9-stat"><div class="s9-stat-val">24</div><div class="s9-stat-label">Orders</div></div>
+            <div class="s9-stat"><div class="s9-stat-val">7</div><div class="s9-stat-label">Wishlist</div></div>
+            <div class="s9-stat"><div class="s9-stat-val">4.9</div><div class="s9-stat-label">Rating</div></div>
+          </div>
+          <div class="s9-menu">
+            <div class="s9-menu-item"><div class="s9-menu-icon">📦</div><div class="s9-menu-label">My Orders</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item"><div class="s9-menu-icon">❤️</div><div class="s9-menu-label">Wishlist</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item"><div class="s9-menu-icon">📍</div><div class="s9-menu-label">Saved Addresses</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item"><div class="s9-menu-icon">💳</div><div class="s9-menu-label">Payment Methods</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item"><div class="s9-menu-icon">🔔</div><div class="s9-menu-label">Notifications</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item"><div class="s9-menu-icon">🔒</div><div class="s9-menu-label">Privacy & Security</div><div class="s9-menu-arrow">›</div></div>
+            <div class="s9-menu-item" style="border:none"><div class="s9-menu-icon">🚪</div><div class="s9-menu-label" style="color:var(--primary)">Logout</div><div class="s9-menu-arrow">›</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 10: Order Success -->
+  <div class="screen-wrap">
+    <div class="screen-label"><span>10</span> <div><div>Screen 10</div><div class="screen-name">Order Success</div></div></div>
+    <div class="phone-frame">
+      <div class="screen-content">
+        <div class="s10">
+          <div class="s10-circle">✅</div>
+          <div class="s10-title">Order Placed!</div>
+          <div class="s10-sub">Your order has been successfully placed.<br>You'll get a confirmation SMS shortly.</div>
+          <div class="s10-order-card">
+            <div class="s10-order-row"><span style="color:var(--muted)">Order ID</span><span>#SE2501031030018</span></div>
+            <div class="s10-order-row"><span style="color:var(--muted)">Items</span><span>3 Products</span></div>
+            <div class="s10-order-row"><span style="color:var(--muted)">Payment</span><span>UPI Pay</span></div>
+            <div class="s10-order-row"><span style="color:var(--muted)">Estimated</span><span style="color:var(--green)">35 mins</span></div>
+            <div class="s10-order-row"><span>Total Paid</span><span style="color:var(--primary)">₹9,308</span></div>
+          </div>
+          <button class="s10-btn">Track My Order 🚚</button>
+          <div class="s10-link">← Continue Shopping</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  ShopEase E-Commerce App — Prototype Design | Assignment 1 [Unit 1] | Task 2<br>
+  Enrollment No: 2501031030018 | 10 Screens | Figma UI Prototype
+</div>
+
+</body>
+</html>
